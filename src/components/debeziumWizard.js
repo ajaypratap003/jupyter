@@ -26,7 +26,7 @@ import logoMssql from '../images/logo-mssql.png';
 import HelpIcon from '@patternfly/react-icons/dist/js/icons/help-icon';
 import "./debeziumWizard.css";
 
-const DebeziumWizard = ({ onSave }) => {
+const DebeziumWizard = ({ onSave, onClose }) => {
   const [connector, setConnector] = React.useState('mysql');
   const [table, setTable] = React.useState('Select');
   const [streamName, setStreamName] = React.useState('');
@@ -121,7 +121,7 @@ const DebeziumWizard = ({ onSave }) => {
           }
           isRequired
           fieldId="simple-form-name"
-          helperText="Please provide your full name"
+          helperText="Please provide name of stream"
         >
           <TextInput
             isRequired
@@ -163,7 +163,7 @@ const DebeziumWizard = ({ onSave }) => {
               }
               isRequired
               fieldId="configure-connection-url"
-              helperText="Please provide your full name"
+              helperText="Please provide a connection url"
               isRequired
             >
               <TextInput
@@ -223,11 +223,12 @@ const DebeziumWizard = ({ onSave }) => {
     </React.Fragment>
   )
 
+  console.log('streamName', streamName)
   const CreateStream = (
     <React.Fragment>
       <Form isHorizontal>
         <Title size="2xl" headingLevel="h2">
-          Create stream
+          Create stream (Optional)
         </Title>
         <FormGroup
           label="Stream name"
@@ -236,11 +237,9 @@ const DebeziumWizard = ({ onSave }) => {
           <TextInput
             value={streamName}
             onChange={val => setStreamName(val)}
-            isRequired
             type="text"
             id="simple-stream-name"
             name="simple-stream-name"
-            aria-describedby="simple-form-name-helper"
           />
         </FormGroup>
         <FormGroup
@@ -270,7 +269,7 @@ const DebeziumWizard = ({ onSave }) => {
     { name: 'Configure connection',
       component: ConfigureConnection
     },
-    { name: 'Create stream',
+    { name: 'Create stream (Optional)',
       component: CreateStream,
       nextButtonText: 'Finish'
     },
@@ -289,14 +288,28 @@ const DebeziumWizard = ({ onSave }) => {
         dataCaptures.push({
           name: streamName,
           namespace: 'Default',
-          connector: 'MySQL',
+          connector,
           connectorURL: 'trades-db.rds.aws.amazon.com',
           connectorPort: '3306',
-          databaseName: 'trades'
+          databaseName: 'spring-trades-db',
+          table
         })
         localStorage.setItem('dataCaptures', JSON.stringify(dataCaptures));
+        if (streamName) {
+          let streams = localStorage.getItem('streams')
+          streams = streams ? JSON.parse(streams) : [];
+          streams.push({
+            name: streamName,
+            env: "Default",
+            cloudProvider: "aws",
+            region: "us-east-1",
+            preset: "Trial"
+          })
+          localStorage.setItem('streams', JSON.stringify(streams));
+        }
         onSave();
       }}
+      onClose={onClose}
     />
   )
 }
