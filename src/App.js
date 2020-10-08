@@ -5,14 +5,12 @@ import {
   PageHeader,
   PageSection
 } from '@patternfly/react-core';
-import DebeziumWizard from "./components/debeziumWizard";
 import logoDebezium from './images/logo-debezium.svg';
+import DebeziumTable from "./components/debeziumTable";
 
 const MyPageHeader = () => {
   const Logo = (
-    <a href="#" className="app-c-page__footer-brand-link">
-      <Brand src={logoDebezium} alt="Debezium" style={{width: "180px"}} />
-    </a>
+    <Brand className="app-c-page__footer-brand-link" src={logoDebezium} alt="Debezium" style={{width: "180px"}} />
   );
 
   return <PageHeader logo={Logo} />
@@ -21,7 +19,7 @@ const MyPageHeader = () => {
 const App = () => (
   <Page header={<MyPageHeader />}>
     <React.Suspense fallback={<PageSection>Loading...</PageSection>}>
-      <DebeziumWizard />
+      <DebeziumTable />
     </React.Suspense>
   </Page>
 );

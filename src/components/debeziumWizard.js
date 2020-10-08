@@ -18,7 +18,6 @@ import {
   Title,
   Wizard
 } from '@patternfly/react-core';
-import { useHistory } from 'react-router-dom';
 import { css } from '@patternfly/react-styles';
 import logoMysql from '../images/logo-mysql.png';
 import logoMongDb from '../images/logo-mongodb.png';
@@ -27,11 +26,10 @@ import logoMssql from '../images/logo-mssql.png';
 import HelpIcon from '@patternfly/react-icons/dist/js/icons/help-icon';
 import "./debeziumWizard.css";
 
-const DebeziumWizard = () => {
+const DebeziumWizard = ({ onSave }) => {
   const [connector, setConnector] = React.useState('mysql');
   const [table, setTable] = React.useState('Select');
   const [streamName, setStreamName] = React.useState('');
-  const history = useHistory();
 
   const SelectConnector = (
     <Gallery hasGutter>
@@ -225,32 +223,6 @@ const DebeziumWizard = () => {
     </React.Fragment>
   )
 
-  const SelectTables = (
-    <React.Fragment>
-      <Form isHorizontal>
-        <Title size="2xl" headingLevel="h2">
-          Select table
-        </Title>
-        <FormGroup
-          label="Table name"
-          fieldId="simple-form-name"
-        >
-          <FormSelect
-            value={table}
-            onChange={sel => setTable(sel)}
-            id="horzontal-form-title"
-            name="horizontal-form-title"
-            aria-label="Your title"
-          >
-            <FormSelectOption value="Select" label="Select" />
-            <FormSelectOption value="trades" label="trades" />
-            <FormSelectOption value="music" label="music" />
-          </FormSelect>
-        </FormGroup>
-      </Form>
-    </React.Fragment>
-  )
-
   const CreateStream = (
     <React.Fragment>
       <Form isHorizontal>
@@ -271,6 +243,22 @@ const DebeziumWizard = () => {
             aria-describedby="simple-form-name-helper"
           />
         </FormGroup>
+        <FormGroup
+          label="Table name"
+          fieldId="simple-form-name"
+        >
+          <FormSelect
+            value={table}
+            onChange={sel => setTable(sel)}
+            id="horzontal-form-title"
+            name="horizontal-form-title"
+            aria-label="Your title"
+          >
+            <FormSelectOption value="Select" label="Select" />
+            <FormSelectOption value="trades" label="trades" />
+            <FormSelectOption value="music" label="music" />
+          </FormSelect>
+        </FormGroup>
       </Form>
     </React.Fragment>
   )
@@ -281,9 +269,6 @@ const DebeziumWizard = () => {
     },
     { name: 'Configure connection',
       component: ConfigureConnection
-    },
-    { name: 'Select tables',
-      component: SelectTables
     },
     { name: 'Create stream',
       component: CreateStream,
@@ -299,19 +284,18 @@ const DebeziumWizard = () => {
       steps={wizardSteps}
       onSave={() => {
         // use localstorage to fake a db for now
-        let streams = localStorage.getItem('streams')
-        streams = streams ? JSON.parse(streams) : [];
-        streams.push({
+        let dataCaptures = localStorage.getItem('dataCaptures')
+        dataCaptures = dataCaptures ? JSON.parse(dataCaptures) : [];
+        dataCaptures.push({
           name: streamName,
-          env: 'Default',
-          cloudProvider: 'aws',
-          region: 'us-east-1',
-          preset: 'Trial',
-          // connector,
-          // table
+          namespace: 'Default',
+          connector: 'MySQL',
+          connectorURL: 'trades-db.rds.aws.amazon.com',
+          connectorPort: '3306',
+          databaseName: 'trades'
         })
-        localStorage.setItem('streams', JSON.stringify(streams));
-        history.push('/services/streams')
+        localStorage.setItem('dataCaptures', JSON.stringify(dataCaptures));
+        onSave();
       }}
     />
   )
