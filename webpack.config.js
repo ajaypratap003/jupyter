@@ -64,7 +64,6 @@ module.exports = (env = {}, argv) => {
         filename: "remoteEntry.js",
         exposes: {
           "./notebook": "./src/components/notebook",
-          "./debeziumTable": "./src/components/debeziumTable",
         },
         shared: {
           ...dependencies,
