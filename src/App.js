@@ -1,24 +1,27 @@
-import { HashRouter, Route, Switch } from "react-router-dom";
-
 import React from "react";
-import routes from "nav/routes";
-import Page from 'nav/Page';
+import {
+  Brand,
+  Page,
+  PageHeader,
+  PageSection
+} from '@patternfly/react-core';
+import logoDebezium from './images/logo-debezium.svg';
+import DebeziumTable from "./components/debeziumTable";
+
+const MyPageHeader = () => {
+  const Logo = (
+    <Brand className="app-c-page__footer-brand-link" src={logoDebezium} alt="Debezium" style={{width: "180px"}} />
+  );
+
+  return <PageHeader logo={Logo} />
+}
 
 const App = () => (
-  <HashRouter>
-    <Page>
-      <Switch>
-        {routes.map(({ path, component, exact }) => (
-          <Route
-            key={path}
-            path={path}
-            component={component}
-            exact={exact}
-          />
-        ))}
-      </Switch>
-    </Page>
-  </HashRouter>
+  <Page header={<MyPageHeader />}>
+    <React.Suspense fallback={<PageSection>Loading...</PageSection>}>
+      <DebeziumTable />
+    </React.Suspense>
+  </Page>
 );
 
 export default App;

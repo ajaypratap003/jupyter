@@ -1,3 +1,7 @@
+.app-c-notebook .container {
+    width: 100%;
+}
+
 .glyphicon {
     position: relative;
     top: 1px;
