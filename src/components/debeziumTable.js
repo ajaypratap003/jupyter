@@ -438,14 +438,21 @@ class DebeziumTable extends React.Component {
 
     return (
       <React.Fragment>
-        {isWizardOpen && <Modal
-          isOpen
-          variant="large"
-          showClose={false}
-          hasNoBodyWrapper
-        >
-          <DebeziumWizard onSave={() => this.setState({ rows: dataCapturesToRows(getDataCaptures()), isWizardOpen: false })} />
-        </Modal>}
+        {isWizardOpen && (
+          <Modal
+            isOpen
+            variant="large"
+            showClose={false}
+            hasNoBodyWrapper
+            title="Add data capture"
+            aria-label="Add data capture"
+          >
+            <DebeziumWizard
+              onSave={() => this.setState({ rows: dataCapturesToRows(getDataCaptures()), isWizardOpen: false })}
+              onClose={() => this.setState({ isWizardOpen: false })}
+            />
+          </Modal>
+        )}
         {rows.length === 0
           ? (
             <EmptyState variant="xl">
