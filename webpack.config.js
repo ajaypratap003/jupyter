@@ -69,6 +69,7 @@ module.exports = (env = { navPort: 3000, streamsPort: 3001 }, argv) => {
         },
         exposes: {
           "./notebook": "./src/components/notebook",
+          "./debeziumWizard": "./src/components/debeziumWizard",
         },
         shared: {
           ...dependencies,
