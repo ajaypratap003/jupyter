@@ -1,3 +1,26 @@
+.app-c-debezium-modal {
+  height: 80%;
+  min-height: 400px;
+  max-height: 800px;
+}
+
+.pf-c-modal-box {
+  --pf-c-modal-box__body--PaddingRight: 0;
+  --pf-c-modal-box__body--PaddingLeft: 0;
+  --pf-c-modal-box__body--PaddingBottom: 0;
+  --pf-c-modal-box__body--last-child--PaddingBottom: 0;
+}
+
+.pf-c-modal-box__header {
+  padding-bottom: var(--pf-global--spacer--lg);
+}
+
+.pf-c-modal-box__header + .pf-c-modal-box__body {
+  --pf-c-modal-box__body--PaddingTop: 0;
+
+  border-top: var(--pf-global--BorderWidth--sm) solid var(--pf-global--BorderColor--100);
+}
+
 .pf-c-card.pf-m-center-content .pf-c-card__header,
 .pf-c-card.pf-m-center-content .pf-c-card__title,
 .pf-c-card.pf-m-center-content .pf-c-card__body {

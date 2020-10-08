@@ -411,10 +411,11 @@ class DebeziumTable extends React.Component {
       <React.Fragment>
         {isWizardOpen && (
           <Modal
+            className="app-c-debezium-modal"
             isOpen
             variant="large"
-            showClose={false}
-            hasNoBodyWrapper
+            // width="1200px"
+            showClose={true}
             title="Add data capture"
             aria-label="Add data capture"
           >

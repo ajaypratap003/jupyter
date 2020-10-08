@@ -8,15 +8,12 @@ delete dependencies.serve; // Needed for nodeshift bug
 // Don't include PatternFly styles twice
 const reactCSSRegex = /(react-[\w-]+\/public|react-styles\/css)\/.*\.css$/;
 
-module.exports = (env = { navPort: 3000, streamsPort: 3001 }, argv) => {
+module.exports = (env = {}, argv) => {
   const isProd = argv.mode === 'production';
   const { remoteSuffix } = env;
   const publicPath = (isProd && remoteSuffix)
     ? `http://jupyter${remoteSuffix}/`
     : `http://localhost:${port}/`;
-  const navPath = (isProd && remoteSuffix)
-    ? `http://nav${remoteSuffix}/`
-    : `http://localhost:${env.navPort}/`;
 
   return ({
     entry: "./src/index",
@@ -26,6 +23,7 @@ module.exports = (env = { navPort: 3000, streamsPort: 3001 }, argv) => {
       port
     },
     output: {
+      path: path.resolve('public'),
       publicPath
     },
     module: { 
@@ -64,9 +62,6 @@ module.exports = (env = { navPort: 3000, streamsPort: 3001 }, argv) => {
       new webpack.container.ModuleFederationPlugin({
         name,
         filename: "remoteEntry.js",
-        remotes: {
-          nav: `nav@${navPath}remoteEntry.js`,
-        },
         exposes: {
           "./notebook": "./src/components/notebook",
           "./debeziumTable": "./src/components/debeziumTable",
