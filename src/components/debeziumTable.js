@@ -412,9 +412,8 @@ class DebeziumTable extends React.Component {
         {isWizardOpen && (
           <Modal
             isOpen
-            variant="large"
+            // variant="large"
             showClose={false}
-            hasNoBodyWrapper
             title="Add data capture"
             aria-label="Add data capture"
           >
