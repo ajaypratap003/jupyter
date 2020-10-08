@@ -27,6 +27,7 @@ import HelpIcon from '@patternfly/react-icons/dist/js/icons/help-icon';
 import "./debeziumWizard.css";
 
 const DebeziumWizard = ({ onSave, onClose }) => {
+  const [stepNum, setStepNum] = React.useState(0);
   const [connector, setConnector] = React.useState('mysql');
   const [table, setTable] = React.useState('Select');
   const [streamName, setStreamName] = React.useState('');
@@ -59,7 +60,7 @@ const DebeziumWizard = ({ onSave, onClose }) => {
           <CardBody>Connection to SampleDB</CardBody>
         </Card>
       </GalleryItem>
-      <GalleryItem>
+      {/* <GalleryItem>
         <Card className={css("app-c-selectable-card", connector === 'mongodb' && 'app-m-focus')} isSelectable={true} onClick={() => setConnector('mongodb')}>
           <CardHeader>
             <CardHeaderMain>
@@ -84,7 +85,7 @@ const DebeziumWizard = ({ onSave, onClose }) => {
           <CardTitle>SQL Server</CardTitle>
           <CardBody>Connection to SampleDB</CardBody>
         </Card>
-      </GalleryItem>
+      </GalleryItem> */}
     </Gallery>
   )
 
@@ -263,13 +264,19 @@ const DebeziumWizard = ({ onSave, onClose }) => {
   )
 
   const wizardSteps = [
-    { name: 'Select connector',
+    {
+      id: 0,
+      name: 'Select connector',
       component: SelectConnector
     },
-    { name: 'Configure connection',
+    {
+      id: 1,
+      name: 'Configure connection',
       component: ConfigureConnection
     },
-    { name: 'Create stream (Optional)',
+    {
+      id: 2,
+      name: 'Create stream (Optional)',
       component: CreateStream,
       nextButtonText: 'Finish'
     },
@@ -278,8 +285,10 @@ const DebeziumWizard = ({ onSave, onClose }) => {
   return (
     <Wizard
       // if step is select connector, apply 'pf-m-color-scheme-light-200'
-      className='pf-m-color-scheme-light-200'
-      // else omit this className
+      className={stepNum === 0 ? 'pf-m-color-scheme-light-200' : ''}
+      onNext={newStep => setStepNum(newStep.id)}
+      onBack={newStep => setStepNum(newStep.id)}
+      onGoToStep={newStep => setStepNum(newStep.id)}
       steps={wizardSteps}
       onSave={() => {
         // use localstorage to fake a db for now

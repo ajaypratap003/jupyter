@@ -206,13 +206,6 @@ class DebeziumTable extends React.Component {
 
     this.actions = [
       {
-        title: 'Open in Jupyter',
-        onClick: () => {
-          console.log('CLICK')
-          this.setState({ isDrawerExpanded: true })
-        }
-      },
-      {
         title: 'View configuration'
       },
       {
@@ -399,28 +392,6 @@ class DebeziumTable extends React.Component {
     );
   }
 
-  renderDrawerPanel() {
-    return (
-      <DrawerPanelContent widths={{ default: 'width_50' }}>
-        <DrawerHead>
-          <Title headingLevel="h3" size={TitleSizes['xl']}>
-            Notebook quick view
-            {' '}
-            <a target="_blank" href="http://jupyterlab-sample-ums-poc.apps.uxd1.patternfly.org/lab?token=b276d53e3dd950d871dfcdadac149c9a2cdd1b5b37b40820">
-              <ExternalLinkIcon />
-            </a>
-          </Title>
-          <DrawerActions>
-            <DrawerCloseButton onClick={() => this.setState({ isDrawerExpanded: false })} />
-          </DrawerActions>
-        </DrawerHead>
-        <DrawerPanelBody>
-          <Notebook />
-        </DrawerPanelBody>
-      </DrawerPanelContent>
-    );
-  }
-
   render() {
     const { rows, columns, filters, isDrawerExpanded, isWizardOpen } = this.state;
 
@@ -467,23 +438,19 @@ class DebeziumTable extends React.Component {
             </EmptyState>
           )
           : (
-            <Drawer className="pf-m-inline-on-2xls" isExpanded={isDrawerExpanded}>
-              <DrawerContent panelContent={this.renderDrawerPanel()}>
-                <DrawerContentBody>
-                  {this.renderToolbar()}
-                  <Table
-                    cells={columns}
-                    rows={filteredRows}
-                    onSelect={this.onRowSelect}
-                    aria-label="Filterable Table Demo"
-                    actions={this.actions}
-                  >
-                    <TableHeader />
-                    <TableBody />
-                  </Table>
-                </DrawerContentBody>
-              </DrawerContent>
-            </Drawer>
+            <React.Fragment>
+              {this.renderToolbar()}
+              <Table
+                cells={columns}
+                rows={filteredRows}
+                onSelect={this.onRowSelect}
+                aria-label="Filterable Table Demo"
+                actions={this.actions}
+              >
+                <TableHeader />
+                <TableBody />
+              </Table>
+            </React.Fragment>
           )
         }
       </React.Fragment>
