@@ -148,6 +148,6 @@ ConsumerRecord(topic=&#39;spring-trades&#39;, partition=0, offset=5, timestamp=1
 }
 
 export default () => (
-  <div dangerouslySetInnerHTML={createMarkup()} />
+  <div className="app-c-notebook" dangerouslySetInnerHTML={createMarkup()} />
 );
 
