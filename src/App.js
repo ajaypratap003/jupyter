@@ -1,12 +1,18 @@
 import React from "react";
-import { Page, PageHeader, PageSection, Title } from '@patternfly/react-core';
+import {
+  Brand,
+  Page,
+  PageHeader,
+  PageSection
+} from '@patternfly/react-core';
 import DebeziumWizard from "./components/debeziumWizard";
+import logoDebezium from './images/logo-debezium.svg';
 
 const MyPageHeader = () => {
   const Logo = (
-    <Title headingLevel="h1" size="xl" style={{ color: 'white' }}>
-      Debezium
-    </Title>
+    <a href="#" className="app-c-page__footer-brand-link">
+      <Brand src={logoDebezium} alt="Debezium" style={{width: "180px"}} />
+    </a>
   );
 
   return <PageHeader logo={Logo} />

@@ -25,6 +25,7 @@ import logoMongDb from '../images/logo-mongodb.png';
 import logoPostgres from '../images/logo-postgres.png';
 import logoMssql from '../images/logo-mssql.png';
 import HelpIcon from '@patternfly/react-icons/dist/js/icons/help-icon';
+import "./debeziumWizard.css";
 
 const DebeziumWizard = () => {
   const [connector, setConnector] = React.useState('mysql');
@@ -289,7 +290,7 @@ const DebeziumWizard = () => {
       nextButtonText: 'Finish'
     },
   ];
-  
+
   return (
     <Wizard
       // if step is select connector, apply 'pf-m-color-scheme-light-200'
