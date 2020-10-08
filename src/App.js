@@ -79,7 +79,9 @@ const MyPageHeader = () => {
 const App = () => (
   <Page header={<MyPageHeader />}>
     <React.Suspense fallback={<PageSection>Loading...</PageSection>}>
-      <DebeziumTable />
+      <PageSection>
+        <DebeziumTable />
+      </PageSection>
     </React.Suspense>
   </Page>
 );
