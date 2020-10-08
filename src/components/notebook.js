@@ -1,12 +1,16 @@
 import './notebook.css';
 import React from 'react';
+import {
+  Flex,
+  FlexItem
+} from '@patternfly/react-core';
 import toolbar from '../images/jupyter-toolbar.png';
 
 const createMarkup = () => {
   return {__html: `<div>
 <div tabindex="-1" id="notebook" class="border-box-sizing">
   <div class="container" id="notebook-container">
-  
+
   <div class="cell border-box-sizing code_cell rendered">
   <div class="input">
   <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
@@ -95,8 +99,14 @@ ConsumerRecord(topic=&#39;spring-trades&#39;, partition=0, offset=5, timestamp=1
 
 export default () => (
   <React.Fragment>
-    <img src={toolbar} alt="Logo" />
-    <div className="app-c-notebook" dangerouslySetInnerHTML={createMarkup()} />
+    <Flex direction={{ default: 'column' }}>
+      <FlexItem>
+        <img src={toolbar} alt="Logo" />
+      </FlexItem>
+      <FlexItem>
+        <div className="app-c-notebook" dangerouslySetInnerHTML={createMarkup()} />
+      </FlexItem>
+    </Flex>
   </React.Fragment>
 );
 

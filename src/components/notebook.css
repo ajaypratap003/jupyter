@@ -1,5 +1,10 @@
 .app-c-notebook .container {
     width: 100%;
+    max-width: 100%;
+}
+
+.pf-l-flex > div {
+    max-width: 100%;
 }
 
 .glyphicon {
@@ -10269,6 +10274,7 @@ code,
 kbd,
 samp {
     white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 #fonttest {
     font-family: monospace;
