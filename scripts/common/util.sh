@@ -4,10 +4,11 @@ DIR=$(dirname "$0")
 source ${DIR}/common/logger.sh
 
 dd-oc() {
-    log-info "oc --namespace ${NAMESPACE} $@"
-    oc --namespace ${NAMESPACE} "$@"
-}
+  local _ns=$(oc project --short=true)
 
+  log-info "oc --namespace ${_ns} $@"
+  oc --namespace ${_ns} "$@"
+}
 get-url() {
   local _app_name=$1
 
