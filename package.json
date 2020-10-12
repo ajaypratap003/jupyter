@@ -14,15 +14,15 @@
     "nodeshift": "^7.1.0",
     "null-loader": "^4.0.0",
     "serve": "11.3.2",
-    "webpack": "5.0.0-rc.3",
-    "webpack-cli": "3.3.12",
+    "webpack": "5.0.0",
+    "webpack-cli": "^4.0.0",
     "webpack-dev-server": "3.11.0"
   },
   "scripts": {
     "start": "npm run serve",
     "build": "webpack --mode production --env.remoteSuffix=-ums-poc.apps.uxd1.patternfly.org",
     "clean": "rm -rf public",
-    "develop": "webpack-dev-server",
+    "develop": "webpack serve --color --progress",
     "serve": "node scripts/serve",
     "nodeshift-deploy": "scripts/nodeshift.sh deploy jupyter",
     "nodeshift-undeploy": "scripts/nodeshift.sh undeploy jupyter",
